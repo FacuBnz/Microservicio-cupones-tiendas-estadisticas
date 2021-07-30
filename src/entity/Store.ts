@@ -1,14 +1,14 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity({name: 'stores'})
 
 export class Store{
-    @PrimaryColumn({type: "bigint"})
+    @PrimaryGeneratedColumn({type: "bigint"})
     id : number
 
-    @Column({type: "text", nullable: true})
+    @Column()
     name : string
 
-    @Column({type: "text", nullable: true})
+    @Column()
     address : string
 }
