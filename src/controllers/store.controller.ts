@@ -33,8 +33,15 @@ export const getStores = async (req : Request, res: Response) => {
 }
 
 
-export const deleteStore = (req: Request, res: Response) => {
+export const createStore = async (req : Request, res : Response) => {
+    const newStore = getRepository(Store).create(req.body);
+    const result = await getRepository(Store).save(newStore);
+    return res.json({data: result, msg: "store created successfully"})
+}
+
+
+export const deleteStore = async (req: Request, res: Response) => {
     const id = req.params.id;
-    const store = getRepository(Store).delete(id);
+    const store = await getRepository(Store).delete(id);
     return res.status(204).json({ msg: "eliminated successfully" });
 }
