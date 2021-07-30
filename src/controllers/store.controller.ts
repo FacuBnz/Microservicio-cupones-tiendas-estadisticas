@@ -31,3 +31,10 @@ export const getStores = async (req : Request, res: Response) => {
     }
 
 }
+
+
+export const deleteStore = (req: Request, res: Response) => {
+    const id = req.params.id;
+    const store = getRepository(Store).delete(id);
+    return res.status(204).json({ msg: "eliminated successfully" });
+}
