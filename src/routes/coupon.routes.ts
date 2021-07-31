@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { getCoupon } from '../controllers/coupon.controller'
+import { checkCoupon } from '../controllers/coupon.controller'
 
 const router = Router();
 
-router.get('/coupons', getCoupon)
+router.get('/coupons', checkCoupon)
 router.post('/coupons')
 router.patch('/coupons')
 router.delete('/coupons')
