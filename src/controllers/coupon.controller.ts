@@ -17,3 +17,13 @@ export const createCoupon = async (req: Request, res: Response) => {
     const rs = await getRepository(Coupon).save(newCoupon);
     return res.status(201).json({coupon : rs, msg: "coupon created successfully"});
 }
+
+export const deleteCoupon = async (req: Request, res: Response) => {
+    const id = req.params.id;
+    const coupon = await getRepository(Coupon).findOne(id);
+    if(!coupon) return res.status(404).json({error: "Not found coupon"})
+
+    if(coupon?.customerEmail !== null) return res.status(405).json({error: "The coupon cannot be deleted, it has an email address assigned to it"})
+    await getRepository(Coupon).delete(id)
+    res.status(201).json({msg : "coupon successfully removed"});
+}
