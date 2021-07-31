@@ -11,3 +11,9 @@ export const checkCoupon = async (req: Request, res: Response) => {
     return res.status(404).json({error: "not found code and email"});
 
 }
+
+export const createCoupon = async (req: Request, res: Response) => {
+    const newCoupon = getRepository(Coupon).create({...req.body, expiresAt: ()=> "now() + interval '30 day'"})
+    const rs = await getRepository(Coupon).save(newCoupon);
+    return res.status(201).json({coupon : rs, msg: "coupon created successfully"});
+}
