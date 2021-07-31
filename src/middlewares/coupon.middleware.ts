@@ -15,3 +15,17 @@ export const validateCoupon = async (req: Request, res: Response, next: NextFunc
 
     next();
 }
+
+export const validateIdCoupon = async (req: Request, res: Response, next: NextFunction) => {
+
+    const schema = Joi.object({
+        id: Joi.number().integer().positive().required()
+    })
+    try {
+        await schema.validateAsync(req.params)
+    } catch (err) {
+        return res.status(400).json(err);
+    }
+
+    next();
+}
