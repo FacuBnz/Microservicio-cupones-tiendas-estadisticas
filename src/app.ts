@@ -3,6 +3,7 @@ import morgan from 'morgan'
 import cors from 'cors'
 import storeRoutes from './routes/store.routes'
 import couponRoutes from './routes/coupon.routes'
+import statisticRoutes from './routes/statistic.routes'
 
 
 const app = express();
@@ -19,5 +20,6 @@ app.use(express.json())
 //routes
 app.use('/api',storeRoutes);
 app.use('/api', couponRoutes)
+app.use('/api', statisticRoutes)
 
 export default app;
