@@ -4,11 +4,6 @@ import 'reflect-metadata'
 import { createConnection } from 'typeorm'
 import app from './app'
 
-try {
-    createConnection();
-} catch (e) {
-    console.log(e)
-}
+createConnection()
 
 app.listen(app.get('port'))
-console.log(`Server on port ${app.get('port')}`);
