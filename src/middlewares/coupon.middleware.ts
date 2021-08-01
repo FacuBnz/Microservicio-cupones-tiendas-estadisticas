@@ -29,3 +29,17 @@ export const validateIdCoupon = async (req: Request, res: Response, next: NextFu
 
     next();
 }
+
+export const validateEmail = async (req: Request, res: Response, next: NextFunction) => {
+
+    const schema = Joi.object({
+        email: Joi.string().empty().email({minDomainSegments: 2}).required()
+    })
+    try {
+        await schema.validateAsync(req.params)
+    } catch (err) {
+        return res.status(422).json(err);
+    }
+
+    next();
+}
