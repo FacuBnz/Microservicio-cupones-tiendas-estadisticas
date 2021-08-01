@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { getRepository } from 'typeorm'
+import { getRepository, IsNull } from 'typeorm'
 import { Coupon } from '../entity/Coupon'
 
 export const checkCoupon = async (req: Request, res: Response) => {
@@ -16,6 +16,23 @@ export const createCoupon = async (req: Request, res: Response) => {
     const newCoupon = getRepository(Coupon).create({...req.body, expiresAt: ()=> "now() + interval '30 day'"})
     const rs = await getRepository(Coupon).save(newCoupon);
     return res.status(201).json({coupon : rs, msg: "coupon created successfully"});
+}
+
+export const assignCoupon = async (req: Request, res: Response) => {
+
+    const email = req.params.email;
+    const coupon = await getRepository(Coupon).findOne({ where: { customerEmail: email }});
+
+    if(coupon) return res.status(422).json({ error: "Customer already has a coupon" })
+
+    const unassigndCoupon = await getRepository(Coupon).findOne({where: {customerEmail: IsNull()}})
+    const timeNow = new Date(Date.now()+(1000*60*(-(new Date()).getTimezoneOffset()))).toISOString().replace('T',' ').replace('Z','')
+    const obj = { customerEmail: email, assignedAt: timeNow }
+
+    getRepository(Coupon).merge(<Coupon>unassigndCoupon, obj)
+    getRepository(Coupon).save(<Coupon>unassigndCoupon)
+
+    res.status(201).json({msg: "coupon successfully assigned"})
 }
 
 export const deleteCoupon = async (req: Request, res: Response) => {
