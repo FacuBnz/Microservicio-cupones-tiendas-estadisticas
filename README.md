@@ -95,8 +95,8 @@ npm install
 ```
 
 4. Crear una nueva base de datos con el nombre deseado e importar el script SQL dado por la empresa. En mi caso utilicé postgreSQL. Para importar el script se recomienda ver estos videos.
-* [PGAdmin](https://www.youtube.com/watch?v=j9rqfmzm3II&ab_channel=Ing.ElkinJos%C3%A9NavarroOsorio)
-* [MySQL-Workbench](https://www.youtube.com/watch?v=jTs1nSwAcRM&t=157s&ab_channel=cristianballesteros)
+    * [PGAdmin](https://www.youtube.com/watch?v=j9rqfmzm3II&ab_channel=Ing.ElkinJos%C3%A9NavarroOsorio)
+    * [MySQL-Workbench](https://www.youtube.com/watch?v=jTs1nSwAcRM&t=157s&ab_channel=cristianballesteros)
 
 5. Crear el archivo .env en la ruta raiz del proyecto a partir del archivo de ejemplo .env.example y completar las variables de entorno con los datos necesarios.
 ```
@@ -113,10 +113,11 @@ TYPEORM_LOGGING = false
 TYPEORM_ENTITIES = dist/entity/**/*.js    
 ```
 
-6. En la terminal, posicionada en la ruta raiz del proyecto ejecutar los siguientes comandos:
+6. En la terminal, posicionada en la ruta raiz del proyecto compilar de ts a js usando el comando:
  ```
  npm run build
  ```
+ 7. Por ultimo, para arrancar el servidor, se debe ejecutar: 
  ```
  npm run start
  ```
