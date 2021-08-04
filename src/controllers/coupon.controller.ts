@@ -32,7 +32,7 @@ export const assignCoupon = async (req: Request, res: Response) => {
     getRepository(Coupon).merge(<Coupon>unassigndCoupon, obj)
     getRepository(Coupon).save(<Coupon>unassigndCoupon)
 
-    res.status(201).json({msg: "coupon successfully assigned"})
+    res.status(201).json({ coupon: { code: unassigndCoupon?.code } ,msg: "coupon successfully assigned"})
 }
 
 export const deleteCoupon = async (req: Request, res: Response) => {
@@ -42,5 +42,5 @@ export const deleteCoupon = async (req: Request, res: Response) => {
 
     if(coupon?.customerEmail !== null) return res.status(405).json({error: "The coupon cannot be deleted, it has an email address assigned to it"})
     await getRepository(Coupon).delete(id)
-    res.status(201).json({msg : "coupon successfully removed"});
+    res.status(204).json({msg : "coupon successfully removed"});
 }
